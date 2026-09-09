@@ -1,13 +1,6 @@
-# Hiver SDE Intern — AI Support Agent for AppleSupport
+# AI Support Agent for AppleSupport
 
-<p align="center">
-  <img src="https://img.shields.io/badge/brand-AppleSupport-black?logo=apple" />
-  <img src="https://img.shields.io/badge/intent_macro--F1-0.587-blue" />
-  <img src="https://img.shields.io/badge/escalate_precision-98.2%25-brightgreen" />
-  <img src="https://img.shields.io/badge/false_auto--handle-14.9%25-orange" />
-  <img src="https://img.shields.io/badge/judge_agreement_κ-0.64-blue" />
-  <img src="https://img.shields.io/badge/python-3.10%2B-blue" />
-</p>
+
 
 A **reproducible, evidence-first** AI support agent for AppleSupport built on the real Customer Support on Twitter dataset (~3M tweets, 78,443 AppleSupport pairs). The agent classifies intents, drafts historically-grounded replies, and makes conservative escalation decisions — every output is fully auditable.
 

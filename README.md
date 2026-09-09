@@ -2,9 +2,9 @@
 
 
 
-A **reproducible, evidence-first** AI support agent for AppleSupport built on the real Customer Support on Twitter dataset (~3M tweets, 78,443 AppleSupport pairs). The agent classifies intents, drafts historically-grounded replies, and makes conservative escalation decisions — every output is fully auditable.
+A **reproducible, evidence-first** AI support agent for AppleSupport built on the real Customer Support on Twitter dataset (~3M tweets, 78,443 AppleSupport pairs). The agent classifies intents, drafts historically-grounded replies, and makes conservative escalation decisions - every output is fully auditable.
 
-> **"The proof is worth more than the system."** — Hiver brief
+> **"The proof is worth more than the system."** - Hiver brief
 
 ---
 

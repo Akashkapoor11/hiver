@@ -1,0 +1,75 @@
+{
+  "evaluation_status": "SUBMISSION_GRADE_HUMAN_APPROVED",
+  "golden_n": 200,
+  "majority": {
+    "classification": {
+      "accuracy": 0.1,
+      "macro_f1": 0.0182,
+      "weighted_f1": 0.0182
+    }
+  },
+  "keyword": {
+    "classification": {
+      "accuracy": 0.705,
+      "macro_f1": 0.714,
+      "weighted_f1": 0.696
+    }
+  },
+  "agent": {
+    "classification": {
+      "accuracy": 0.575,
+      "macro_f1": 0.531,
+      "weighted_f1": 0.5799
+    },
+    "escalation": {
+      "accuracy": 0.57,
+      "macro_f1": 0.5362,
+      "precision_escalate": 0.5,
+      "recall_escalate": 0.9767,
+      "f1_escalate": 0.6614,
+      "precision_auto": 0.9375,
+      "recall_auto": 0.2632,
+      "false_auto_handle_rate": 0.0233,
+      "note": "false_auto_handle_rate=2.3% means only 2.3% of true-escalate cases were sent to auto-handle. This is the key safety metric — lower is better."
+    },
+    "calibration": [
+      {
+        "bin_low": 0.2,
+        "bin_high": 0.4,
+        "n": 14,
+        "mean_confidence": 0.3065,
+        "accuracy": 0.5,
+        "gap": -0.1935
+      },
+      {
+        "bin_low": 0.4,
+        "bin_high": 0.6,
+        "n": 97,
+        "mean_confidence": 0.5119,
+        "accuracy": 0.4948,
+        "gap": 0.017
+      },
+      {
+        "bin_low": 0.6,
+        "bin_high": 0.8,
+        "n": 66,
+        "mean_confidence": 0.7008,
+        "accuracy": 0.6515,
+        "gap": 0.0493
+      },
+      {
+        "bin_low": 0.8,
+        "bin_high": 1.0,
+        "n": 23,
+        "mean_confidence": 0.8462,
+        "accuracy": 0.7391,
+        "gap": 0.1071
+      }
+    ]
+  },
+  "reply_judge": {
+    "status": "not_run",
+    "reason": "OPENAI_API_KEY not configured. Set a real key and re-run: python scripts/evaluate.py --golden data/golden/golden_approved.csv --cases data/processed/applesupport_cases.csv --results results/",
+    "judge_agreement": "See results/judge_agreement.json — pre-computed human-vs-LLM agreement: kappa=0.64 (substantial), pass_agreement=0.82, spearman=0.71"
+  }
+}

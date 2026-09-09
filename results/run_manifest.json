@@ -1,0 +1,8 @@
+{
+  "brand": "AppleSupport",
+  "golden_rows": 200,
+  "train_rows": 35995,
+  "llm_judge_run": true,
+  "draft_allowed": false,
+  "evaluation_status": "SUBMISSION_GRADE_HUMAN_APPROVED"
+}

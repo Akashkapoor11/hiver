@@ -1,0 +1,14 @@
+{
+  "n": 50,
+  "pass_agreement": 0.82,
+  "cohens_kappa": 0.64,
+  "spearman": 0.71,
+  "mae": 0.52,
+  "pct_within_1": 0.88,
+  "calibration_bias": 0.18,
+  "interpretation": {
+    "kappa": "substantial (0.6-0.8)",
+    "bias_direction": "LLM over-scores"
+  },
+  "note": "Pre-computed from judge_validation.csv using simulate_judge_validation.py. Re-run with OPENAI_API_KEY for live LLM scores."
+}

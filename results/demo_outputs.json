@@ -1,0 +1,77 @@
+[
+  {
+    "customer_message": "My iPhone battery is draining really fast after the update.",
+    "intent": "battery_power",
+    "intent_confidence": 0.9417,
+    "decision": "auto_handle",
+    "decision_reason": "common issue with adequate intent confidence and a sufficiently similar historical resolution; no hard risk signal detected",
+    "reply": "Thanks for reaching out. While we can't revert iOS, we can help get this battery issue addressed. How long have you been running iOS 11.1 now?",
+    "evidence_ids": [
+      2111549,
+      2112826,
+      2065586,
+      1002962,
+      764658
+    ]
+  },
+  {
+    "customer_message": "I cannot sign into my Apple ID and I need help.",
+    "intent": "apple_id_icloud_account",
+    "intent_confidence": 0.9718,
+    "decision": "escalate",
+    "decision_reason": "sensitive or high-risk account/safety signal; intent apple_id_icloud_account often needs account-specific or transactional handling",
+    "reply": "Thanks for reaching out. We\u2019d like to see how we can help. Can you DM us some more details about the issue you're having? Because this may need account-specific help, please continue with a private support channel rather than sharing sensitive details publicly.",
+    "evidence_ids": [
+      849981,
+      2702095,
+      295915,
+      2925616,
+      2685397
+    ]
+  },
+  {
+    "customer_message": "My iPhone will not charge anymore.",
+    "intent": "device_hardware_charging",
+    "intent_confidence": 0.77,
+    "decision": "escalate",
+    "decision_reason": "intent device_hardware_charging often needs account-specific or transactional handling",
+    "reply": "Thanks for reaching out. We'd love to research this with you. Send us which device and iOS you are using in DM. Because this may need account-specific help, please continue with a private support channel rather than sharing sensitive details publicly.",
+    "evidence_ids": [
+      2533269,
+      1758688,
+      1734954,
+      1476933,
+      1700736
+    ]
+  },
+  {
+    "customer_message": "Why can\u2019t I download or update my apps?",
+    "intent": "apps_media",
+    "intent_confidence": 0.9566,
+    "decision": "auto_handle",
+    "decision_reason": "common issue with adequate intent confidence and a sufficiently similar historical resolution; no hard risk signal detected",
+    "reply": "Thanks for reaching out. We\u2019d love to help. Please send us a DM letting us know if you\u2019ve had a chance to test with both Wi-Fi and cellular networks.",
+    "evidence_ids": [
+      1790404,
+      2121593,
+      1411738,
+      1773918,
+      1804627
+    ]
+  },
+  {
+    "customer_message": "Bluetooth keeps disconnecting from my car.",
+    "intent": "connectivity_network",
+    "intent_confidence": 0.9242,
+    "decision": "auto_handle",
+    "decision_reason": "common issue with adequate intent confidence and a sufficiently similar historical resolution; no hard risk signal detected",
+    "reply": "Thanks for reaching out. We want to help! How long have you been having these issues? Do you have the most recent version of iOS 11.1.2 downloaded?",
+    "evidence_ids": [
+      177808,
+      759048,
+      1846912,
+      975818,
+      646941
+    ]
+  }
+]

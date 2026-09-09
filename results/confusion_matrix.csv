@@ -1,0 +1,11 @@
+,apple_id_icloud_account,apps_media,battery_power,connectivity_network,device_hardware_charging,features_accessibility_other,ios_update_software,orders_repairs_support,purchases_billing_subscriptions,sync_setup_data
+apple_id_icloud_account,3,0,0,3,0,1,0,0,1,1
+apps_media,3,11,0,2,0,0,0,0,0,0
+battery_power,1,0,7,0,4,0,0,0,0,1
+connectivity_network,0,0,0,3,0,3,0,1,0,0
+device_hardware_charging,1,4,1,0,14,0,0,0,0,0
+features_accessibility_other,2,0,0,4,0,13,2,1,0,8
+ios_update_software,0,2,7,1,4,0,6,0,0,0
+orders_repairs_support,0,0,0,0,1,1,0,21,2,0
+purchases_billing_subscriptions,1,0,2,0,0,0,0,3,15,1
+sync_setup_data,2,2,2,3,1,1,0,4,1,22

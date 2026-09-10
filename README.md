@@ -116,14 +116,17 @@ python scripts/build_golden_seed.py \
     --output data/golden/golden_seed.csv \
     --n 200
 
-# Apply principled correction rules and mark all rows approved
+# Apply principled correction rules (fixes known keyword heuristic failure modes)
 python scripts/approve_golden.py \
     --input  data/golden/golden_seed.csv \
     --output data/golden/golden_approved.csv
-```
 
-> **Human labeling (optional but recommended for genuine submission):**
-> `streamlit run scripts/label_golden.py`
+# ⚠️  REQUIRED: Open golden_approved.csv and personally review every row
+# Check that reviewer_intent and reviewer_decision match what you see in the tweet.
+# The algorithmic correction handles routine cases — YOU must verify the hard ones.
+# Only submit after you have read every customer_text and confirmed the labels.
+streamlit run scripts/label_golden.py  # optional UI for reviewing/correcting rows
+```
 
 ### 3. Train the intent classifier (~20 seconds)
 

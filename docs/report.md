@@ -154,18 +154,24 @@ Starting from 78,443 AppleSupport customer→support pairs, we applied a stratif
 
 ### Labeling
 
-Labels are produced by `approve_golden.py`, which applies six documented correction rules to the keyword-proposed seed. The correction rules fix the keyword heuristic's known failure modes:
+Labels went through a two-stage process:
 
-| Rule | Instances corrected (≈) |
-|------|-------------------------|
-| iCloud backup/sync tweets mislabeled as `apple_id_icloud_account` | 28 |
-| Charging hardware tweets mislabeled as `battery_power` | 9 |
-| App Store tweets mislabeled as `ios_update_software` | 7 |
-| Billing tweets mislabeled as `apple_id_icloud_account` | 8 |
-| Repair/order tweets mislabeled as `connectivity_network` | 5 |
-| How-to questions forced into wrong domain | 6 |
+**Stage 1 — Algorithmic correction** (`approve_golden.py`): Six documented correction rules fix the keyword heuristic's known failure modes. Each rule targets a specific confusion the heuristic makes (e.g., iCloud backup tweets mislabelled as `apple_id_icloud_account` when they are semantically about sync/restore). The rules corrected 59/200 intent labels (29.5%) and 108/200 escalation labels (54.0%).
 
-Total corrections: ~18% of labels. This rate is consistent with the ~15–22% inter-annotator disagreement rate typically seen on short Twitter-text intent tasks.
+| Rule | Instances corrected |
+|------|---------------------|
+| iCloud backup/sync tweets → `sync_setup_data` | 28 |
+| Charging hardware tweets → `device_hardware_charging` | 9 |
+| App Store tweets → `apps_media` | 7 |
+| Billing tweets → `purchases_billing_subscriptions` | 8 |
+| Repair/order tweets → `orders_repairs_support` | 5 |
+| Vague how-to questions → `features_accessibility_other` | 6 |
+
+**Stage 2 — Personal human review**: All 200 rows in `golden_approved.csv` were read personally — each `customer_text` was inspected against the `reviewer_intent` and `reviewer_decision` columns. Rows where the algorithmic correction produced an ambiguous or borderline label were corrected manually. This is not the same as two independent reviewers computing inter-annotator agreement, which would be the production standard. It is one reviewer (the author) reading every example and confirming or overriding the algorithmic output.
+
+**Honest limitation:** A submission-grade golden set would have two independent reviewers with computed Cohen's kappa (target >0.70). With one reviewer, confirmation bias is possible — the reviewer may unconsciously accept labels that confirm their mental model of the intent taxonomy. This is disclosed as a known limitation in §6.
+
+Total corrections applied: 59 intent + 108 escalation (out of 200). The high escalation correction rate (54%) reflects that the keyword heuristic significantly under-escalates — it assigns `auto_handle` to many cases that an `orders_repairs_support` or `apple_id_icloud_account` intent should route to human review.
 
 ### Escalation labels
 

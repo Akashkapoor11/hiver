@@ -3,73 +3,71 @@
   "golden_n": 200,
   "majority": {
     "classification": {
-      "accuracy": 0.1,
-      "macro_f1": 0.0182,
-      "weighted_f1": 0.0182
+      "accuracy": 0.09,
+      "macro_f1": 0.0165,
+      "weighted_f1": 0.0149
     }
   },
   "keyword": {
     "classification": {
-      "accuracy": 0.705,
-      "macro_f1": 0.714,
-      "weighted_f1": 0.696
+      "accuracy": 0.75,
+      "macro_f1": 0.7169,
+      "weighted_f1": 0.7831
     }
   },
   "agent": {
     "classification": {
-      "accuracy": 0.575,
-      "macro_f1": 0.531,
-      "weighted_f1": 0.5799
+      "accuracy": 0.635,
+      "macro_f1": 0.5841,
+      "weighted_f1": 0.6464
     },
     "escalation": {
-      "accuracy": 0.57,
-      "macro_f1": 0.5362,
-      "precision_escalate": 0.5,
-      "recall_escalate": 0.9767,
-      "f1_escalate": 0.6614,
-      "precision_auto": 0.9375,
-      "recall_auto": 0.2632,
-      "false_auto_handle_rate": 0.0233,
-      "note": "false_auto_handle_rate=2.3% means only 2.3% of true-escalate cases were sent to auto-handle. This is the key safety metric — lower is better."
+      "accuracy": 0.775,
+      "macro_f1": 0.5397,
+      "precision_escalate": 0.8869,
+      "recall_escalate": 0.8514,
+      "f1_escalate": 0.8688,
+      "precision_auto": 0.1875,
+      "recall_auto": 0.24,
+      "false_auto_handle_rate": 0.1486
     },
     "calibration": [
       {
         "bin_low": 0.2,
         "bin_high": 0.4,
         "n": 14,
-        "mean_confidence": 0.3065,
-        "accuracy": 0.5,
-        "gap": -0.1935
+        "mean_confidence": 0.3071,
+        "accuracy": 0.6429,
+        "gap": -0.3358
       },
       {
         "bin_low": 0.4,
         "bin_high": 0.6,
         "n": 97,
-        "mean_confidence": 0.5119,
-        "accuracy": 0.4948,
-        "gap": 0.017
+        "mean_confidence": 0.512,
+        "accuracy": 0.5567,
+        "gap": -0.0447
       },
       {
         "bin_low": 0.6,
         "bin_high": 0.8,
         "n": 66,
-        "mean_confidence": 0.7008,
-        "accuracy": 0.6515,
-        "gap": 0.0493
+        "mean_confidence": 0.7007,
+        "accuracy": 0.697,
+        "gap": 0.0038
       },
       {
         "bin_low": 0.8,
         "bin_high": 1.0,
         "n": 23,
-        "mean_confidence": 0.8462,
-        "accuracy": 0.7391,
-        "gap": 0.1071
+        "mean_confidence": 0.8461,
+        "accuracy": 0.7826,
+        "gap": 0.0635
       }
     ]
   },
   "reply_judge": {
     "status": "not_run",
-    "reason": "OPENAI_API_KEY not configured. Set a real key and re-run: python scripts/evaluate.py --golden data/golden/golden_approved.csv --cases data/processed/applesupport_cases.csv --results results/",
-    "judge_agreement": "See results/judge_agreement.json — pre-computed human-vs-LLM agreement: kappa=0.64 (substantial), pass_agreement=0.82, spearman=0.71"
+    "reason": "OPENAI_API_KEY not configured or --no-judge"
   }
-}
+}

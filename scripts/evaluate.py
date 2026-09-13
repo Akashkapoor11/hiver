@@ -27,6 +27,7 @@ p.add_argument('--allow-draft', action='store_true',
 p.add_argument('--results', default='results', help='Output directory')
 p.add_argument('--brand', default='AppleSupport')
 p.add_argument('--no-judge', action='store_true', help='Skip LLM judge even if API key is set')
+p.add_argument('--judge-n', type=int, default=50, help='Max rows for LLM judge (default 50, use 200 for full evaluation)')
 args = p.parse_args()
 
 Path(args.results).mkdir(parents=True, exist_ok=True)
@@ -131,7 +132,7 @@ pd.DataFrame(rep).T.to_csv(Path(args.results) / 'classification_report.csv')
 
 # ---- LLM judge (optional) ------------------------------------------------
 if not args.no_judge:
-    judge = run_llm_judge(pred.head(50), Path(args.results) / 'reply_judge_results.csv')
+    judge = run_llm_judge(pred, Path(args.results) / 'reply_judge_results.csv', max_n=args.judge_n)
 else:
     judge = None
 

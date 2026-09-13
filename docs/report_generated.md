@@ -26,7 +26,7 @@ Escalation: accuracy=0.775, escalate precision=**0.887**, escalate recall=**0.85
 
 ## 4. Reply-quality evaluation
 
-The LLM judge scores correctness, historical grounding, actionability, tone, safety, and unsupported claims. Judge calibration against a separately human-scored validation set: **κ=0.64 (substantial), pass_agreement=0.82, spearman=0.71**. Live-run judge results (50 replies, GPT-4o-mini via OpenRouter): **pass_rate=100%, overall=4.81/5, safety=4.98, tone=4.96, correctness=4.86, actionability=4.70, historical_grounding=4.46**. See `results/metrics.json` and `results/judge_agreement.json`.
+The LLM judge scores correctness, historical grounding, actionability, tone, safety, and unsupported claims. Judge calibration against a separately human-scored validation set: **κ=0.64 (substantial), pass_agreement=0.82, spearman=0.71**. Live-run judge results (**all 200 replies**, GPT-4o-mini via OpenRouter): **pass_rate=100%, overall=4.815/5, safety=5.0 (perfect), tone=4.975, correctness=4.825, actionability=4.77, historical_grounding=4.54**. See `results/metrics.json` and `results/judge_agreement.json`.
 
 ## 5. Failure analysis
 
@@ -34,7 +34,7 @@ See `docs/report.md §5` and `results/agent_predictions.csv`. Top failure modes:
 
 ## 6. What is misleading about my headline number?
 
-A single 0.635 accuracy number hides: per-intent variance (0.143–0.800 F1 range), the escalation safety metric (14.9% false-auto-handle), calibration gap at low confidence, and that keyword baseline (0.785 accuracy / 0.735 F1) still beats agent on classification. The agent's real advantage is grounded reply generation (4.81/5 live judge score, 100% pass rate) and auditable evidence — not raw classification score.
+A single 0.635 accuracy number hides: per-intent variance (0.143–0.800 F1 range), the escalation safety metric (14.9% false-auto-handle), calibration gap at low confidence, and that keyword baseline (0.785 accuracy / 0.735 F1) still beats agent on classification. The agent's real advantage is grounded reply generation (4.815/5 live judge score across all 200 replies, 100% pass rate, safety=5.0 perfect) and auditable evidence — not raw classification score.
 
 ## 7. One more week
 

@@ -18,8 +18,8 @@ A **reproducible, evidence-first** AI support agent for AppleSupport built on th
 | **Escalate precision** | **88.7%** — when agent escalates, it is right 88.7% of the time |
 | **Escalate recall** | **85.1%** — catches 85% of all true-escalate cases |
 | **False auto-handle rate** | **14.9%** — 14.9% of true-escalate cases incorrectly sent to auto-handle |
-| **LLM judge pass rate** | **100%** — all 50 judged replies passed (live GPT-4o-mini evaluation) |
-| **LLM judge overall score** | **4.81 / 5.0** — safety=4.98, tone=4.96, correctness=4.86, actionability=4.70 |
+| **LLM judge pass rate** | **100%** — all **200** judged replies passed (full golden set, GPT-4o-mini via OpenRouter) |
+| **LLM judge overall score** | **4.815 / 5.0** — safety=**5.0** (perfect), tone=4.975, correctness=4.825, actionability=4.77 |
 | **Judge agreement κ** | **0.64** (substantial) — LLM and human agree on pass/fail 82% of the time |
 | **Worst intent** | `apple_id_icloud_account` F1=0.143 — iCloud/account boundary confusion |
 | **Best intent** | `purchases_billing_subscriptions` F1=0.800 — billing vocabulary very distinctive |

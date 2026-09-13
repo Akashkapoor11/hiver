@@ -4,11 +4,12 @@ Pre-computed outputs committed to the repo so reviewers can verify results **wit
 
 | File | Content |
 |------|---------|
-| `metrics.json` | Classification accuracy, macro-F1, escalation precision/recall, false_auto_handle_rate, **live LLM judge scores** |
+| `metrics.json` | Classification accuracy, macro-F1, escalation precision/recall, false_auto_handle_rate, **live LLM judge scores (all 200 rows)** |
 | `agent_predictions.csv` | 200-row row-by-row agent output vs gold labels |
 | `classification_report.csv` | Per-intent precision, recall, F1, support |
 | `confusion_matrix.csv` | 10×10 intent confusion matrix |
 | `judge_agreement.json` | Human-vs-LLM judge agreement: Cohen's κ=0.64, Spearman ρ=0.71, MAE |
+| `reply_judge_results.csv` | Row-by-row LLM judge scores for all 200 replies |
 | `per_intent_metrics.csv` | Per-intent precision/recall/F1 (real numbers, not approximations) |
 | `run_manifest.json` | Pipeline metadata: brand, golden_rows, train_rows, eval_status |
 
@@ -23,9 +24,10 @@ Pre-computed outputs committed to the repo so reviewers can verify results **wit
 | Escalate precision | **88.7%** |
 | Escalate recall | **85.1%** |
 | False auto-handle rate | **14.9%** |
-| LLM judge pass rate | **100%** (50 replies) |
-| LLM judge overall score | **4.81 / 5.0** |
-| LLM judge safety score | **4.98 / 5.0** |
+| LLM judge pass rate | **100%** (all 200 replies) |
+| LLM judge overall score | **4.815 / 5.0** |
+| LLM judge safety score | **5.0 / 5.0 — PERFECT** |
+| LLM judge tone score | **4.975 / 5.0** |
 
 To regenerate all results from scratch:
 ```bash

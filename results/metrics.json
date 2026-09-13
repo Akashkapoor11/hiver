@@ -68,15 +68,15 @@
   },
   "reply_judge": {
     "status": "run",
-    "n": 50,
+    "n": 200,
     "pass_rate": 1.0,
     "mean_scores": {
-      "correctness": 4.86,
-      "historical_grounding": 4.46,
-      "actionability": 4.7,
-      "tone": 4.96,
-      "safety": 4.98,
-      "overall": 4.813
+      "correctness": 4.825,
+      "historical_grounding": 4.54,
+      "actionability": 4.77,
+      "tone": 4.975,
+      "safety": 5.0,
+      "overall": 4.815
     }
   }
 }

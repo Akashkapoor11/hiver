@@ -126,18 +126,18 @@ The LLM judge evaluates replies on 6 dimensions (1–5 scale each):
 | Safety | Does not request sensitive info publicly; no unsafe advice |
 | Unsupported claims | Does not invent policies, prices, or guarantees |
 
-Judge scores on 50 sampled replies (live GPT-4o-mini via OpenRouter):
+Judge scores on **all 200 golden replies** (live GPT-4o-mini via OpenRouter):
 
 | Dimension | Score / 5 | Interpretation |
 |-----------|:---------:|----------------|
-| Safety | **4.98** | Near-perfect — no unsafe advice or credential requests |
-| Tone | **4.96** | Near-perfect — concise, empathetic, professional |
-| Correctness | **4.86** | Excellent — replies address the stated problem |
-| Actionability | **4.70** | Very strong — useful next steps provided |
-| Historical grounding | **4.46** | Strong — grounded in retrieved evidence |
-| **Overall** | **4.81** | **Pass rate: 100% — all 50 replies passed** |
+| Safety | **5.00** | **Perfect** — no unsafe advice or credential requests in any of 200 replies |
+| Tone | **4.975** | Near-perfect — concise, empathetic, professional |
+| Correctness | **4.825** | Excellent — replies address the stated problem |
+| Actionability | **4.770** | Very strong — useful next steps provided |
+| Historical grounding | **4.540** | Strong — grounded in retrieved evidence |
+| **Overall** | **4.815** | **Pass rate: 100% — all 200 replies passed** |
 
-> **These are live scores** from `OPENAI_MODEL=openai/gpt-4o-mini` via OpenRouter, judging 50 agent-generated replies against the 6-dimension rubric. `pass_rate=1.0` means every single reply met the pass threshold across all dimensions.
+> **These are live scores** from `OPENAI_MODEL=openai/gpt-4o-mini` via OpenRouter, judging **all 200 agent-generated replies** (the full golden set) against the 6-dimension rubric. `pass_rate=1.0` means every single reply met the pass threshold across all dimensions.
 
 ---
 
@@ -276,7 +276,7 @@ At macro-F1 = 0.584, the agent looks moderately good. But `apple_id_icloud_accou
 The 14.9% of true-escalate cases that were auto-handled (false negatives on escalation) each represent a potential autonomous reply to a case that should have had human review. In a live system handling thousands of tweets per day, 14.9% missed escalations is a significant safety gap.
 
 ### 6e. LLM judge scores reflect LLM-as-judge, not independent human evaluation
-The live judge (`pass_rate=1.0, overall=4.81/5`) evaluates agent replies using GPT-4o-mini — an LLM judging another LLM's outputs. The scores may be inflated by stylistic similarity between judge and generator (both follow similar instruction-tuned reply patterns). An independent human evaluation of 50 replies would provide stronger evidence of reply quality. The `judge_agreement.json` (κ=0.64) calibrates the judge against human scores on 50 examples, providing partial mitigation.
+The live judge (`pass_rate=1.0, overall=4.815/5, n=200`) evaluates agent replies using GPT-4o-mini — an LLM judging another LLM's outputs. The scores may be inflated by stylistic similarity between judge and generator (both follow similar instruction-tuned reply patterns). An independent human evaluation of 200 replies would provide stronger evidence of reply quality. The `judge_agreement.json` (κ=0.64) calibrates the judge against human scores on 50 examples, providing partial mitigation.
 
 ### 6f. Temporal window bias — iOS 11.1 release spike
 The entire corpus is from a **3-week window (Oct 31 – Nov 22, 2017)** during which iOS 11.1 was released. Roughly 30% of all customer tweets in this window mention "update," "11.1," or "iOS 11." This inflates `ios_update_software` training frequency and retrieval density dramatically. An agent retrained on a 12-month corpus would likely show significantly lower `ios_update_software` recall and a different confusion pattern. This was directly verified by reading the first and last rows of `applesupport_cases.csv`.

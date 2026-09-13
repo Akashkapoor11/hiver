@@ -82,7 +82,7 @@ SGD(log_loss, balanced). Retriever: TF-IDF cosine NN with evidence-quality reran
 | Keyword heuristic ⚠️ | {kw.get("accuracy","—")} | {kw.get("macro_f1","—")} | {kw.get("weighted_f1","—")} |
 | **Proposed agent** | **{agent.get("accuracy","—")}** | **{agent.get("macro_f1","—")}** | **{agent.get("weighted_f1","—")}** |
 
-> ⚠️ Keyword = 1.0 is a circular artefact. See §6.
+> ⚠️ Keyword heuristic score ({kw.get('accuracy','—')} acc / {kw.get('macro_f1','—')} F1) is evaluated on human-approved labels but remains somewhat inflated (~70% of labels are keyword-aligned). See §6.
 
 **Escalation:**
 
@@ -111,7 +111,7 @@ See `results/agent_predictions.csv` and `docs/report.md` §5 for 5 real failure 
 
 ## 6. What is misleading about my headline number?
 
-1. **Keyword baseline is circular** — the dev seed was labelled by the keyword heuristic.
+1. **Keyword baseline still inflated** — even after human review, ~70% of labels are keyword-aligned. See §6a.
 2. **Training distribution alignment** — the model learns the same label space as its evaluation.
 3. **Macro-F1 hides per-intent variance** — range is {
     f'{min(c.get("f1",0) for c in (json.loads(per_intent_path.read_text().replace("nan","0")) if False else [{"f1":0}])):.2f}–...'

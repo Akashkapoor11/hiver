@@ -40,16 +40,35 @@ def draft_reply(customer_text: str, intent: str, evidence: List[Dict], escalate:
     key = os.getenv('OPENAI_API_KEY')
     if not key or OpenAI is None:
         return {'reply': fallback_reply(customer_text, intent, evidence, escalate), 'mode':'deterministic_fallback', 'rationale':'Generated from the highest-similarity historical support response with a conservative escalation policy.', 'evidence_ids':[e.get('support_tweet_id') for e in evidence], 'unsupported_claims':[]}
-    client = OpenAI(api_key=key)
+
+    base_url = os.getenv('OPENAI_BASE_URL')  # set to https://openrouter.ai/api/v1 for OpenRouter
+    client_kwargs = {'api_key': key}
+    if base_url:
+        client_kwargs['base_url'] = base_url
+    client = OpenAI(**client_kwargs)
+
     evidence_block = '\n'.join([f"ID={e.get('support_tweet_id')} | customer={e.get('customer_text')} | support={e.get('support_text')} | similarity={e.get('similarity')}" for e in evidence])
     prompt = f"""Customer message:\n{customer_text}\n\nPredicted intent: {intent}\nEscalation: {escalate}\n\nHistorical evidence:\n{evidence_block}\n\nDraft a concise, brand-consistent reply. If escalation is true, make the need for private human help explicit. Do not claim an issue is fixed unless the evidence supports it."""
+    chosen_model = model or os.getenv('OPENAI_MODEL', 'gpt-4o-mini')
     try:
-        response = client.responses.create(model=model or os.getenv('OPENAI_MODEL','gpt-4o'), instructions=SYSTEM_PROMPT, input=prompt)
-        raw = response.output_text.strip()
+        response = client.chat.completions.create(
+            model=chosen_model,
+            messages=[
+                {'role': 'system', 'content': SYSTEM_PROMPT},
+                {'role': 'user', 'content': prompt},
+            ],
+            temperature=0.2,
+            max_tokens=512,
+        )
+        raw = response.choices[0].message.content.strip()
         if raw.startswith('```'):
             raw = re.sub(r'^```(?:json)?\s*|\s*```$', '', raw, flags=re.I|re.S).strip()
-        data = json.loads(raw)
-        data['mode'] = 'openai_responses_api'
+        try:
+            data = json.loads(raw)
+        except json.JSONDecodeError:
+            # Model returned plain text instead of JSON — wrap it
+            data = {'reply': raw, 'rationale': 'Direct text response from model.', 'evidence_ids': [e.get('support_tweet_id') for e in evidence], 'unsupported_claims': []}
+        data['mode'] = 'openai_chat_api'
         return data
     except Exception as exc:
         return {'reply': fallback_reply(customer_text, intent, evidence, escalate), 'mode':'fallback_after_api_error', 'rationale':f'LLM generation failed safely: {type(exc).__name__}.', 'evidence_ids':[e.get('support_tweet_id') for e in evidence], 'unsupported_claims':['LLM call failed; deterministic fallback used.']}

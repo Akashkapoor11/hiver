@@ -127,7 +127,8 @@ def run_llm_judge(pred: pd.DataFrame, out_csv: str | Path, max_n: int = 50):
     if not key:
         return None
     from openai import OpenAI
-    client = OpenAI(api_key=key)
+    base_url = os.getenv('OPENAI_BASE_URL')
+    client = OpenAI(api_key=key, **(dict(base_url=base_url) if base_url else {}))
     rows = []
     rubric = {
         'correctness': 'Does the reply avoid false claims and correctly address the customer problem? (1-5)',
@@ -151,11 +152,13 @@ def run_llm_judge(pred: pd.DataFrame, out_csv: str | Path, max_n: int = 50):
             f"unsupported_claims, overall, pass (1=pass 0=fail), brief_reason"
         )
         try:
-            resp = client.responses.create(
+            resp = client.chat.completions.create(
                 model=os.getenv('OPENAI_MODEL', 'gpt-4o-mini'),
-                input=prompt
+                messages=[{'role': 'user', 'content': prompt}],
+                temperature=0.2,
+                response_format={'type': 'json_object'},
             )
-            raw = resp.output_text.strip()
+            raw = resp.choices[0].message.content.strip()
             if raw.startswith('```'):
                 raw = re.sub(r'^```(?:json)?\s*|\s*```$', '', raw, flags=re.I | re.S).strip()
             data = json.loads(raw)

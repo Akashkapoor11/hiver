@@ -3,6 +3,11 @@ import argparse, json, sys, os
 from pathlib import Path
 import pandas as pd
 from sklearn.model_selection import train_test_split
+try:
+    from dotenv import load_dotenv
+    load_dotenv(Path(__file__).resolve().parents[1] / '.env')
+except ImportError:
+    pass
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
 from hiver_agent.model import IntentModel
 from hiver_agent.retrieval import HistoricalRetriever

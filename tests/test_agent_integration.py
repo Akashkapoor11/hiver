@@ -118,7 +118,7 @@ class TestAgentWithMockRetriever:
     def test_generation_mode_present(self, agent):
         out = agent.predict('battery drain')
         assert out['generation_mode'] in (
-            'deterministic_fallback', 'openai_responses_api', 'fallback_after_api_error'
+            'deterministic_fallback', 'openai_chat_api', 'openai_responses_api', 'fallback_after_api_error'
         )
 
 

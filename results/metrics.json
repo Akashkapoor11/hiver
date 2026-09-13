@@ -67,7 +67,16 @@
     ]
   },
   "reply_judge": {
-    "status": "not_run",
-    "reason": "OPENAI_API_KEY not configured or --no-judge"
+    "status": "run",
+    "n": 50,
+    "pass_rate": 1.0,
+    "mean_scores": {
+      "correctness": 4.86,
+      "historical_grounding": 4.46,
+      "actionability": 4.7,
+      "tone": 4.96,
+      "safety": 4.98,
+      "overall": 4.813
+    }
   }
 }

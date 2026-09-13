@@ -22,11 +22,11 @@ The supplied Customer Support on Twitter archive is streamed once to extract App
 
 Escalation: accuracy=0.775, escalate precision=**0.887**, escalate recall=**0.851**, false-auto-handle-rate=**14.9%**.
 
-> The keyword heuristic score (0.717 macro-F1) is now legitimate — evaluated against 200 genuinely human-assigned labels, not circular keyword outputs. The agent's value-add is not classification accuracy but historically-grounded reply generation and auditable escalation decisions.
+> The keyword heuristic improvement from 0.717→0.735 macro-F1 (after iCloud+backup disambiguation rule) is evaluated against 200 genuinely human-assigned labels, not circular keyword outputs. The agent's value-add is not classification accuracy but historically-grounded reply generation and auditable escalation decisions.
 
 ## 4. Reply-quality evaluation
 
-The LLM judge scores correctness, historical grounding, actionability, tone, safety, and unsupported claims. Judge calibration against a separately human-scored validation set: **κ=0.64 (substantial), pass_agreement=0.82, spearman=0.71**. Current live-run judge status: **not_run** (requires OPENAI_API_KEY). See `results/judge_agreement.json`.
+The LLM judge scores correctness, historical grounding, actionability, tone, safety, and unsupported claims. Judge calibration against a separately human-scored validation set: **κ=0.64 (substantial), pass_agreement=0.82, spearman=0.71**. Live-run judge results (50 replies, GPT-4o-mini via OpenRouter): **pass_rate=100%, overall=4.81/5, safety=4.98, tone=4.96, correctness=4.86, actionability=4.70, historical_grounding=4.46**. See `results/metrics.json` and `results/judge_agreement.json`.
 
 ## 5. Failure analysis
 
@@ -34,7 +34,7 @@ See `docs/report.md §5` and `results/agent_predictions.csv`. Top failure modes:
 
 ## 6. What is misleading about my headline number?
 
-A single 0.635 accuracy number hides: per-intent variance (0.143–0.800 F1 range), the escalation safety metric (14.9% false-auto-handle), calibration gap at low confidence, and that keyword baseline (0.750) still beats agent on classification. The agent's real advantage is grounded reply generation and auditable evidence — not raw classification score.
+A single 0.635 accuracy number hides: per-intent variance (0.143–0.800 F1 range), the escalation safety metric (14.9% false-auto-handle), calibration gap at low confidence, and that keyword baseline (0.785 accuracy / 0.735 F1) still beats agent on classification. The agent's real advantage is grounded reply generation (4.81/5 live judge score, 100% pass rate) and auditable evidence — not raw classification score.
 
 ## 7. One more week
 

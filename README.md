@@ -20,7 +20,7 @@ A **reproducible, evidence-first** AI support agent for AppleSupport built on th
 | **False auto-handle rate** | **14.9%** — 14.9% of true-escalate cases incorrectly sent to auto-handle |
 | **Judge agreement κ** | **0.64** (substantial) — LLM and human agree on pass/fail 82% of the time |
 | **Worst intent** | `apple_id_icloud_account` F1=0.143 — iCloud/account boundary confusion |
-| **Best intent** | `orders_repairs_support` F1=0.800 — clear repair/appointment vocabulary |
+| **Best intent** | `purchases_billing_subscriptions` F1=0.800 — billing vocabulary very distinctive |
 | **Reproduce in** | `make reproduce` — ~10 min, no API key required |
 
 > **Why keyword still beats agent on macro-F1:** The keyword heuristic exploits domain-specific vocabulary (Apple product names, iOS terms) that TF-IDF+SGD also captures but combines less cleanly across intents. The agent's value-add is not raw classification — it is (1) historically-grounded reply generation using 78k real cases, (2) auditable evidence IDs per decision, and (3) structured escalation with stated reason.
@@ -31,20 +31,20 @@ A **reproducible, evidence-first** AI support agent for AppleSupport built on th
 
 ## Per-Intent F1 (human-approved golden set, 20 examples each)
 
-| Intent | F1 | Note |
-|--------|----|------|
-| `orders_repairs_support` | **0.800** | Clearest vocabulary — repair, appointment, warranty |
-| `purchases_billing_subscriptions` | ~0.75 | Billing keywords very distinctive |
-| `apps_media` | ~0.70 | App Store language well-separated |
-| `battery_power` | ~0.65 | Strong keyword signal |
-| `sync_setup_data` | ~0.63 | High recall, over-predicts |
-| `device_hardware_charging` | ~0.60 | Overlaps battery intent |
-| `ios_update_software` | ~0.55 | Temporal iOS 11 spike inflates training |
-| `features_accessibility_other` | ~0.52 | Catch-all — lowest precision |
-| `connectivity_network` | ~0.38 | Underrepresented, weak signal |
-| `apple_id_icloud_account` | **0.143** | Worst — iCloud backup vs account lock confusion |
+| Intent | F1 | Precision | Recall | Note |
+|--------|:--:|:---------:|:------:|------|
+| `purchases_billing_subscriptions` | **0.800** | 0.947 | 0.692 | Highest precision — billing vocabulary very distinctive |
+| `sync_setup_data` | **0.750** | 0.727 | 0.774 | High recall, slight over-prediction |
+| `battery_power` | 0.650 | 0.684 | 0.619 | Strong keyword signal |
+| `device_hardware_charging` | 0.651 | 0.583 | 0.737 | Overlaps battery intent |
+| `orders_repairs_support` | 0.679 | 0.600 | 0.783 | Good recall, lower precision |
+| `features_accessibility_other` | 0.596 | 0.737 | 0.500 | Catch-all — low recall |
+| `apps_media` | 0.595 | 0.579 | 0.611 | App Store language moderately distinctive |
+| `connectivity_network` | 0.516 | 0.500 | 0.533 | Underrepresented in corpus |
+| `ios_update_software` | 0.462 | 0.750 | 0.333 | High precision, very low recall — iOS 11 spike |
+| `apple_id_icloud_account` | **0.143** | 0.077 | 1.000 | Worst — almost always predicted as another intent |
 
-> Macro-F1 range: **0.143–0.800**. The headline 0.584 average hides this variance. `apple_id_icloud_account` is the hardest intent — "iCloud" fires both account and sync intents. See Failure Mode 1 in `docs/report.md §5`.
+> Macro-F1 range: **0.143–0.800**. `apple_id_icloud_account` has recall=1.0 but precision=0.077 — the model almost never predicts it, so when it does it's right, but it misses almost all true cases. See Failure Mode 1 in `docs/report.md §5`.
 
 ---
 

@@ -10,9 +10,9 @@
   },
   "keyword": {
     "classification": {
-      "accuracy": 0.75,
-      "macro_f1": 0.7169,
-      "weighted_f1": 0.7831
+      "accuracy": 0.785,
+      "macro_f1": 0.7351,
+      "weighted_f1": 0.8045
     }
   },
   "agent": {

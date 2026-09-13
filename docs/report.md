@@ -96,10 +96,10 @@ The golden set is 200 examples stratified across 10 intents, built from the Appl
 | System | Accuracy | Macro-F1 | Weighted-F1 |
 |--------|:--------:|:--------:|:-----------:|
 | Majority baseline (`sync_setup_data`) | 0.090 | 0.017 | 0.015 |
-| Keyword heuristic | **0.750** | **0.717** | **0.783** |
+| Keyword heuristic | **0.785** | **0.735** | **0.805** |
 | **Proposed agent (TF-IDF + SGD)** | **0.635** | **0.584** | **0.646** |
 
-> **Evaluation status: `SUBMISSION_GRADE_HUMAN_APPROVED`** — 200 examples personally reviewed by the author. The keyword heuristic now shows a legitimate score (0.717 macro-F1) because the golden labels are genuinely human-assigned, not circular keyword outputs. The agent beats the majority baseline by +56 accuracy points and +0.567 macro-F1.
+> **Evaluation status: `SUBMISSION_GRADE_HUMAN_APPROVED`** — 200 examples personally reviewed by the author. The keyword heuristic improvement from 0.717→0.735 macro-F1 reflects the iCloud+backup disambiguation rule added in `intents.py`, which correctly routes iCloud backup/restore messages to `sync_setup_data` rather than `apple_id_icloud_account`.
 
 ### 3b. Escalation
 

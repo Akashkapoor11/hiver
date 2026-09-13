@@ -61,7 +61,8 @@ INTENTS = {
 }
 
 SYSTEM_KEYWORDS = {
-    'unsafe': ['stolen', 'lost phone', 'hacked', 'phishing', 'fraud', 'unauthorized', 'identity theft', 'compromised', 'scam'],
+    'unsafe': ['stolen', 'lost phone', 'hacked', 'phishing', 'fraud', 'unauthorized', 'identity theft',
+                 'compromised', 'scam', 'fake call', 'scam call', 'phishing call', 'reportfraud'],
     'privacy': ['password', 'passcode', 'apple id', 'account', 'billing account', 'credit card', 'personal information', 'private'],
     'high_risk': ['injury', 'fire', 'smoke', 'overheating', 'exploded', 'medical emergency'],
     # Frustration signals: strongly escalate — a frustrated customer deserves human attention
@@ -95,6 +96,18 @@ def keyword_scores(text: str) -> Dict[str, float]:
 
 def propose_intent(text: str) -> Tuple[str, float]:
     scores = keyword_scores(text)
+    t = normalize(text)
+
+    # Disambiguation rule 1: iCloud + backup/restore/sync → sync_setup_data
+    # "iCloud" fires apple_id_icloud_account, but backup/restore messages
+    # are semantically about sync, not account access.
+    _sync_signals = ['backup', 'restore', 'sync', 'transfer', 'migrate']
+    _account_lock_signals = ['sign in', 'signin', 'login', 'password', 'locked', 'verification', '2fa', 'two factor']
+    if (_hit(t, 'icloud') and any(_hit(t, s) for s in _sync_signals)
+            and not any(_hit(t, a) for a in _account_lock_signals)):
+        scores['sync_setup_data'] = max(scores.get('sync_setup_data', 0),
+                                        scores.get('apple_id_icloud_account', 0) + 0.5)
+
     best = max(scores, key=scores.get)
     mx = scores[best]
     if mx <= 0:

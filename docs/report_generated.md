@@ -17,7 +17,7 @@ The supplied Customer Support on Twitter archive is streamed once to extract App
 | System | Accuracy | Macro-F1 | Weighted-F1 |
 |---|---:|---:|---:|
 | Majority baseline | 0.090 | 0.017 | 0.015 |
-| Keyword heuristic | 0.750 | 0.717 | 0.783 |
+| Keyword heuristic | 0.785 | 0.735 | 0.805 |
 | **Proposed agent** | **0.635** | **0.584** | **0.646** |
 
 Escalation: accuracy=0.775, escalate precision=**0.887**, escalate recall=**0.851**, false-auto-handle-rate=**14.9%**.

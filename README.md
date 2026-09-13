@@ -13,8 +13,8 @@ A **reproducible, evidence-first** AI support agent for AppleSupport built on th
 |--|--|
 | **Brand** | AppleSupport — 106,860 support tweets, 78,443 customer→reply pairs |
 | **Golden set** | **200 examples — all personally reviewed and approved by the author** |
-| **Intent accuracy** | **63.5%** (agent) vs **75.0%** (keyword) vs **9.0%** (majority) |
-| **Intent macro-F1** | **0.584** (agent) vs **0.717** (keyword) vs **0.017** (majority) |
+| **Intent accuracy** | **63.5%** (agent) vs **78.5%** (keyword) vs **9.0%** (majority) |
+| **Intent macro-F1** | **0.584** (agent) vs **0.735** (keyword) vs **0.017** (majority) |
 | **Escalate precision** | **88.7%** — when agent escalates, it is right 88.7% of the time |
 | **Escalate recall** | **85.1%** — catches 85% of all true-escalate cases |
 | **False auto-handle rate** | **14.9%** — 14.9% of true-escalate cases incorrectly sent to auto-handle |

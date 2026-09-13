@@ -19,15 +19,21 @@ missing=req-set(df.columns)
 if missing: raise SystemExit(f'missing columns: {sorted(missing)}')
 if not os.getenv('OPENAI_API_KEY'): raise SystemExit('OPENAI_API_KEY required for judge validation')
 from openai import OpenAI
-client=OpenAI()
+base_url = os.getenv('OPENAI_BASE_URL')
+client=OpenAI(**(dict(base_url=base_url) if base_url else {}))
 rows=[]
 for _,r in df.iterrows():
     prompt=f"""Judge this support reply against the rubric. Return JSON only with overall (1-5), pass (0/1), brief_reason.
 Customer: {r.customer_text}\nReply: {r.reply}\nEvidence: {r.evidence}
 A passing reply must be correct, historically grounded, actionable, safe, and free of unsupported claims."""
-    resp=client.responses.create(model=os.getenv('OPENAI_MODEL','gpt-5.6-luna'),input=prompt)
+    resp=client.chat.completions.create(
+        model=os.getenv('OPENAI_MODEL','gpt-4o-mini'),
+        messages=[{'role':'user','content':prompt}],
+        temperature=0.2,
+        response_format={'type':'json_object'},
+    )
     import json as _json
-    j=_json.loads(resp.output_text); j['item_id']=r.item_id; rows.append(j)
+    j=_json.loads(resp.choices[0].message.content); j['item_id']=r.item_id; rows.append(j)
 jud=pd.DataFrame(rows)
 merged=df[['item_id','human_pass','human_overall']].merge(jud,on='item_id')
 pass_agree=float((merged.human_pass.astype(int)==merged['pass'].astype(int)).mean())

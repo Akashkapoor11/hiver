@@ -1,7 +1,6 @@
 # Hiver SDE Intern — Report: AppleSupport AI Agent
 
-**Author:** Akash  
-**Date:** September 2026  
+**Author:** Akash Kapoor
 **Dataset:** Customer Support on Twitter (Kaggle, thoughtvector/customer-support-on-twitter)  
 **Brand:** AppleSupport  
 
